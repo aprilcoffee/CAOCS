@@ -1,0 +1,59 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="questionnaire-container">
+        <h1>A Collective Archive of Media Art and Chip Shortage</h1>
+        <form id="questionnaireForm">
+            <div class="question-group" style="margin-bottom: 10px;">
+                <p class="question-text">Artist Alias</p>
+                <p class="question-text" style="font-size: smaller; color: grey; margin-bottom: 5px;">Please leave blank if you prefer not to share</p>
+                <textarea class="small-input" name="alias" style="margin-top: 5px;"></textarea>
+            </div>
+            <div class="question-group">
+                <p class="question-text">Working method</p>
+                <p class="question-text" style="font-size: smaller; color: grey;">provide a brief description of your occupation in one sentence.</p>
+                <textarea class="small-input" name="occupation"></textarea>
+            </div>
+            <div class="question-group">
+                <p class="question-text">Personal Website</p>
+                <p class="question-text" style="font-size: smaller; color: grey;">You can leave this blank if you don't want to share</p>
+                <textarea class="small-input" name="personal_website"></textarea>
+            </div>
+           
+    
+            <div class="question-group">
+                <p class="question-text">What does the word <strong>shortage</strong> mean to you?</p>
+                <textarea class="large-input" name="shortage_meaning"></textarea>
+            </div>
+            
+            <div class="question-group">
+                <p class="question-text">Story of Chip Shortage</p>
+                <p class="question-text" style="font-size: smaller; color: grey;">Is there a story about how your work has been affected by chip shortage? 
+                    
+                </br>(When and how did it happen? How did you deal with it?)</p>
+                <textarea class="large-input" name="chip_shortage_story"></textarea>
+            </div>
+            
+            <div class="question-group">
+                <p class="question-text">Aftermath</p>
+                <p class="question-text" style="font-size: smaller; color: grey;">Have you changed your working method after the chip shortage?</p>
+                <textarea class="large-input" name="work_affected_story"></textarea>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="submit-button">Submit</button>
+                <a href="/" class="submit-button">Back to Home</a>
+            </div>
+        </form>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

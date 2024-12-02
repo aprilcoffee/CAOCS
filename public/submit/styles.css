@@ -1,0 +1,83 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.questionnaire-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.question-group {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Changed alignment to center */
+}
+
+.question-text {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center; /* Changed text alignment to center */
+}
+
+textarea {
+    width: 100%; /* Changed width to full */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: inherit;
+    text-align: center; /* Added text alignment to center */
+    height: 100px; /* Increased height for larger text box */
+}
+
+.small-input {
+    width: 100%; /* Changed width to full */
+    height: 24px; /* Increased height for larger text box */
+    resize: none; /* Prevents resizing of the textarea */
+    white-space: nowrap; /* Prevents line break */
+}
+
+.large-input {
+    width: 100%; /* Changed width to full */
+    height: 150px; /* Increased height for larger text box */
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Make both button and anchor look identical */
+.button-container button.submit-button,
+.button-container a.submit-button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.button-container button.submit-button:hover,
+.button-container a.submit-button:hover {
+    background-color: #45a049;
+}
