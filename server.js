@@ -5,7 +5,7 @@ const Datastore = require('nedb');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = 4001;
 
 // Initialize the database
 const db = new Datastore({ 
