@@ -53,6 +53,13 @@ app.get('/api/archive', (req, res) => {
         });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
+// Make the server public by allowing access from any origin
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+app.listen(PORT, () => {
     console.log(`Server is running on http://0.0.0.0:${PORT}`);
 });
