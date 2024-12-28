@@ -6,25 +6,15 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const formData = {};
         const textareas = this.getElementsByTagName('textarea');
-        let allFilled = true;
-        for (let i = 0; i < textareas.length; i++) {
-            const question = textareas[i].getAttribute('name');
-            const value = textareas[i].value;
-            if (question === 'name' && value === '') {
-                formData[question] = 'Anonymous';
-            } else if (question !== 'personal_website' && value === '') {
-                allFilled = false;
-                break;
-            } else {
-                formData[question] = value;
-            }
-        }
         
-        if (!allFilled) {
-            alert('Please fill in all the questions before submitting.');
-            return;
-        }
-        
+        // Just collect the data
+        Array.from(textareas).forEach(textarea => {
+            const question = textarea.getAttribute('name');
+            const value = textarea.value.trim();
+            formData[question] = value;
+        });
+
+        // Submit to server for validation and processing
         fetch('/submit', {
             method: 'POST',
             headers: {
@@ -32,18 +22,19 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify(formData)
         })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(result => {
-            console.log('Success:', result);
-            // Clear all inputs
-            Array.from(textareas).forEach(textarea => textarea.value = '');
-            // Show a small response after the submit
-            alert('Thank you for your submission!');
-            // Send back to front page
-            window.location.href = "/";
+            if (result.success) {
+                Array.from(textareas).forEach(textarea => textarea.value = '');
+                alert('Thank you for your submission!');
+                window.location.href = "/";
+            } else {
+                alert(result.message);
+            }
         })
         .catch(error => {
             console.error('Error:', error);
+            alert('There was an error submitting your form. Please try again.');
         });
     });
 });

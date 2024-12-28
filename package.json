@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "sketch.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "javascript-obfuscator public/submit/script.js --output public/submit/script.min.js"
   },
   "keywords": [],
   "author": "",
@@ -11,6 +12,7 @@
   "description": "",
   "dependencies": {
     "express": "^4.21.1",
-    "nedb": "^1.8.0"
+    "nedb": "^1.8.0",
+    "javascript-obfuscator": "^4.1.0"
   }
 }

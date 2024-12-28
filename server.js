@@ -22,22 +22,59 @@ app.use(express.static('public'));
 // Endpoint to receive form data
 app.post('/submit', (req, res) => {
     const formData = req.body;
-    const timestamp = new Date().toISOString();
-    
-    // Add timestamp to the data
-    const entry = {
-        ...formData,
-        timestamp: timestamp
+    // Enhanced validation function for better defense against spam
+    const containsSpam = (text) => {
+        const spamPatterns = [
+            /http?:\/\//, // Matches URLs
+            /javascript:/, // Matches JavaScript protocol
+            /eval\(/, // Matches eval() function
+            /unescape\(/, // Matches unescape() function
+            /script/, // Matches script tag
+            /<.*?>/ // Matches HTML tags
+        ];
+        return spamPatterns.some(pattern => pattern.test(text));
+    };
+    const containsRequiredWord = (text) => {
+        return text.toLowerCase().includes('chip') || text.toLowerCase().includes('shortage');
     };
 
-    // Insert into database
-    db.insert(entry, (err, newDoc) => {
-        if (err) {
-            console.error('Error saving to database:', err);
-            return res.status(500).send('Internal Server Error');
+    try {
+        // Validate required fields
+        if (!formData.shortage_meaning || !formData.chip_shortage_story || !formData.work_affected_story) {
+            return res.json({ success: false, message: 'Please fill in all required fields.' });
         }
-        res.send('Data received and stored successfully');
-    });
+
+        // Check for spam in relevant fields
+        if (containsSpam(formData.shortage_meaning) || 
+            containsSpam(formData.chip_shortage_story) || 
+            containsSpam(formData.work_affected_story)) {
+            return res.json({ success: false, message: 'Your submission contains invalid content.' });
+        }
+
+        // Check for required keywords
+        if (!containsRequiredWord(formData.shortage_meaning) && 
+            !containsRequiredWord(formData.chip_shortage_story) && 
+            !containsRequiredWord(formData.work_affected_story)) {
+            return res.json({ success: false, message: 'Your submission was not accepted.' });
+        }
+
+        // Process valid submission
+        const timestamp = new Date().toISOString();
+        const entry = {
+            ...formData,
+            timestamp: timestamp
+        };
+
+        // Save to database
+        db.insert(entry, (err, newDoc) => {
+            if (err) {
+                return res.json({ success: false, message: 'Database error occurred.' });
+            }
+            res.json({ success: true, message: 'Data received and stored successfully' });
+        });
+    } catch (error) {
+        res.json({ success: false, message: 'An error occurred processing your submission.' });
+    }
 });
 
 // Endpoint to get all submissions
