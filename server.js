@@ -59,6 +59,11 @@ app.post('/submit', (req, res) => {
             return res.json({ success: false, message: 'Your submission was not accepted.' });
         }
 
+        // Check for character limit in 'What does the word shortage mean to you?' field
+        if (formData.shortage_meaning.length > 250) {
+            return res.json({ success: false, message: 'The field "What does the word shortage mean to you?" cannot be more than 250 characters.' });
+        }
+
         // Process valid submission
         const timestamp = new Date().toISOString();
         const entry = {
