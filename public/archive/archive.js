@@ -57,8 +57,11 @@ function fetchArchiveData() {
                 timestamp.textContent = new Date(item.timestamp).toLocaleString();
                 const aliasOccupation = document.createElement('div');
                 aliasOccupation.textContent = `${item.alias}, ${item.occupation}`;
+                aliasOccupation.style.marginBottom = '10px';
+                
                 const shortageMeaning = document.createElement('div');
                 shortageMeaning.textContent = `${item.shortage_meaning}`;
+                shortageMeaning.style.marginBottom = '10px';
                 
                 div.appendChild(timestamp);
                 div.appendChild(aliasOccupation);
