@@ -35,7 +35,7 @@ app.post('/submit', (req, res) => {
         return spamPatterns.some(pattern => pattern.test(text));
     };
     const containsRequiredWord = (text) => {
-        const requiredWords = ['chip', 'shortage', 'supply', 'demand', 'rpi', 'pi', 'arduino', 'electronics', 'price', 'electronic', 'missing'];
+        const requiredWords = ['chip', 'shortage', 'supply', 'demand', 'rpi', 'pi', 'arduino', 'electronics', 'price', 'electronic', 'missing', 'art', 'artist', 'media art'];
         return requiredWords.some(word => text.toLowerCase().includes(word));
     };
 
