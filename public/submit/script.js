@@ -7,12 +7,39 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = {};
         const textareas = this.getElementsByTagName('textarea');
         
-        // Just collect the data
+        // Validate input
+        let isValid = true;
         Array.from(textareas).forEach(textarea => {
-            const question = textarea.getAttribute('name');
             const value = textarea.value.trim();
-            formData[question] = value;
+            
+            // Check for empty submissions
+            if (!value) {
+                isValid = false;
+                textarea.classList.add('error');
+                return;
+            }
+            
+            // Check for length (e.g., max 1000 characters)
+            if (value.length > 1000) {
+                isValid = false;
+                textarea.classList.add('error');
+                return;
+            }
+            
+            // Basic XSS prevention
+            if (/<script|javascript:|data:/i.test(value)) {
+                isValid = false;
+                textarea.classList.add('error');
+                return;
+            }
+
+            formData[textarea.getAttribute('name')] = value;
         });
+
+        if (!isValid) {
+            alert('Please check your input. Submissions must not be empty, must be under 1000 characters, and cannot contain scripts.');
+            return;
+        }
 
         // Submit to server for validation and processing
         fetch('/submit', {

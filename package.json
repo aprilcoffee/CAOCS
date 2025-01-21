@@ -4,7 +4,8 @@
   "main": "sketch.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "javascript-obfuscator public/submit/script.js --output public/submit/script.min.js"
+    "build": "javascript-obfuscator public/submit/script.js --output public/submit/script.min.js",
+    "start": "node --max_old_space_size=1024 server.js"
   },
   "keywords": [],
   "author": "",
